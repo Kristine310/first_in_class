@@ -24,7 +24,15 @@ For option 3, it stops the large do-while loop and outputs a "Thanks for playing
 int main()
 {
     const int MAX = 100;
+    FILE *readFile;
+    FILE *writeFile;
+    readFile = fopen("savedMaxNumber.txt", "r");
+    int savedMaxNum = getw(readFile);
     int biggestNum = 10;
+    if (savedMaxNum >= 0)
+    {
+        biggestNum = savedMaxNum;
+    }
     int newMax;
     int selectedNum;
     char guess[4];
@@ -88,7 +96,10 @@ int main()
                 else
                 {
                     biggestNum = newMax;
+                    writeFile = fopen("savedMaxNumber.txt", "w+");
+                    putw(biggestNum, writeFile);
                     printf("The max number is now %d\n\n", biggestNum);
+                    fclose(writeFile);
                 }
                 break;
             case 3:
