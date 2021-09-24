@@ -11,3 +11,37 @@ Another double variable will be made to add up all of the amounts (meal cost, ta
 
 A few printf statements will then print out the numbers for that data.
 */
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<time.h>
+
+int main()
+{
+    const char * foodItem[] = {"salad", "soup", "sandwich", "pizza"};
+    const double foodPrice[] = {9.95, 4.55, 13.25, 22.35};
+    double mealCost, taxCost, tipCost, totalCost, taxPercent, tipPercent;
+
+    time_t t;
+    srand((unsigned) time(&t));
+    int foodIndex = rand() % 4;
+    mealCost = foodPrice[foodIndex];
+
+    // Use %lf to load doubles from scanf
+    printf("Enter the tax percentage: ");
+    scanf("%lf", &taxPercent);
+    printf("Enter the tip percentage: ");
+    scanf("%lf", &tipPercent);
+
+    taxCost = mealCost * (taxPercent / 100);
+    tipCost = mealCost * (tipPercent / 100);
+    totalCost = mealCost + taxCost + tipCost;
+
+    printf("You have purchased a %s.\n", foodItem[foodIndex]);
+    printf("Meal Cost: $%.2f\n", mealCost);
+    printf("Tax Amount: $%.2f\n", taxCost);
+    printf("Tip Amount: $%.2f\n", tipCost);
+    printf("Total Bill: $%.2f\n", totalCost);
+    return 0;
+}
