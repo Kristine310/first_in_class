@@ -16,3 +16,88 @@ they are informed that it is not valid and go back to the menu.
 
 For option 3, it stops the large do-while loop and outputs a "Thanks for playing". 
 */
+
+#include<stdio.h>
+#include<time.h>
+#include<stdlib.h>
+
+int main()
+{
+    const int MAX = 100;
+    int biggestNum = 10;
+    int newMax;
+    int selectedNum;
+    char guess[4];
+    int i;
+    int option;
+    int quit = 1;
+    time_t t;
+    do
+    {
+        printf("1: Play Game\n");
+        printf("2: Change Max Number\n");
+        printf("3: Quit\n\n");
+        printf("Please enter a command: ");
+        scanf("%d", &option);
+        switch (option)
+        {
+            case 1:
+                srand((unsigned) time(&t));
+                selectedNum = rand() % biggestNum + 1;
+                int correct = 1;
+                do
+                {
+                    printf("Enter a number: ");
+                    scanf("%s", guess);
+                    if (guess[0] == 'q')
+                    {
+                        printf("\n");
+                        correct = -1;
+                    }
+                    else
+                    {
+                        int guessNum = atoi(guess);
+                        if (guessNum == selectedNum)
+                        {
+                            printf("You win!\n\n");
+                            correct = -1;
+                        }
+                        else if (guessNum > selectedNum)
+                        {
+                            printf("You are too high.\n");
+                        }
+                        else if (guessNum < selectedNum)
+                        {
+                            printf("You are too low.\n");
+                        }
+                    }
+                } while (correct != -1);
+                break;
+            case 2:
+                printf("The max number is %d.\n", biggestNum);
+                printf("Enter new max number: ");
+                scanf("%d", &newMax);
+                if (newMax > MAX)
+                {
+                    printf("The number is bigger than 100.\n\n");
+                }
+                else if (newMax < 0)
+                {
+                    printf("The number is negative.\n\n");
+                }
+                else
+                {
+                    biggestNum = newMax;
+                    printf("The max number is now %d\n\n", biggestNum);
+                }
+                break;
+            case 3:
+                printf("Thank you for playing!\n");
+                quit = -1;
+                break;
+            default:
+                printf("Invalid command\n");
+        }
+    } while (quit != -1);
+    return 0;
+}
